@@ -1,0 +1,6 @@
+[{
+  "origin": ["https://pdf-test-7a1fb.web.app", "https://pdf-test-7a1fb.firebaseapp.com", "http://localhost:8080"],
+  "responseHeader": ["*"],
+  "method": ["GET"],
+  "maxAgeSeconds": 86400
+}]
