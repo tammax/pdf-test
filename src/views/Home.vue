@@ -13,7 +13,11 @@
       <input type="text" v-model="comment" />
       <button @click="addComment">投稿</button>
       <li v-for="(comment, index) in comments" :key="index">
-        <div>{{ comment.name }}:{{ comment.text }}</div>
+        <div>
+          <span>投稿ページ:{{ comment.page }}ページ</span>
+          <span>投稿者:{{ comment.name }}</span>
+          <span>コメント:{{ comment.text }}</span>
+        </div>
       </li>
     </ul>
   </div>
@@ -49,7 +53,8 @@ export default {
       if (this.comment !== "") {
         let addComment = {
           name: "匿名",
-          text: `投稿したページ数:${this.currentPage}ページ:${this.comment}`,
+          text: this.comment,
+          page: this.currentPage,
           createdAt: ""
         };
         this.comments.push(addComment);
@@ -60,7 +65,8 @@ export default {
   mounted() {
     let addComment = {
       name: "匿名",
-      text: `投稿したページ数:${this.currentPage}: 最初のコメント`,
+      text: "最初のコメント",
+      page: this.currentPage,
       createdAt: ""
     };
     this.comments.push(addComment);
