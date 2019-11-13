@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>PDF SHOW</h2>
     {{ currentPage }} / {{ pageCount }}
     <pdf
       :src="src"
