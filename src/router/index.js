@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Upload from "../views/Upload.vue";
+import CustomUpload from "../views/CustomUpload.vue";
+import List from "../views/List.vue";
 
 Vue.use(VueRouter);
 
@@ -15,6 +17,14 @@ const routes = [
     path: "/upload",
     name: "upload",
     component: Upload
+  },
+  {
+    path: "/cupload",
+    component: CustomUpload
+  },
+  {
+    path: "/list",
+    component: List
   }
 ];
 

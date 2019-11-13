@@ -4,7 +4,6 @@
     <button @click="upload">Upload</button>
     <div class="center">Firebaseストレージ</div>
     <section style="margin: 10px;">
-      <!-- <input type="file" name="photo" @change="fileChange" accept="image/*" /> -->
       <input type="file" name="photo" @change="fileChange" accept="application/pdf" />
       <input type="text" v-model="description" />
       <button @click="upload">アップロード</button>
@@ -45,29 +44,14 @@ export default {
       uploadTask.on(
         "state_changed",
         function(snapshot) {
-          console.log(snapshot);
-
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          console.log(snapshot.state);
-          // switch (snapshot.state) {
-          //   case storage.TaskState.PAUSED: // or 'paused'
-          //     console.log('Upload is paused');
-          //     break;
-          //   case storage.TaskState.RUNNING: // or 'running'
-          //     console.log('Upload is running');
-          //     break;
-          // }
+          // var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         },
         function(err) {
-          console.log(err);
+          alert(err);
         },
-        // function() {
         () => {
-          console.log("FINISH");
-          uploadTask.snapshot.ref.getDownloadURL().then( downloadURL => {
-            console.log('File available at', downloadURL);
-            // this.photo_url = downloadURL;
+          uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
             // DB登録
             alert(this.description);
             db.collection("events")
@@ -77,31 +61,15 @@ export default {
                 createdAt: new Date()
               })
               .then(function({ id }) {
-                console.log(`document writing sucess: id ${id}`);
-                // resolve(id);
+                alert(`document writing sucess: id ${id}`);
               })
               .catch(function(error) {
-                console.error("Error writing document: ", error);
+                alert("Error writing document: ", error);
               });
           });
         }
       );
-      console.log(db);
     }
-  },
-  mounted() {
-      //   db.collection("events")
-      // // .orderBy("score", "desc")
-      // .limit(3)
-      // .get()
-      // .then(data => {
-      //   data.forEach(doc => {
-      //     this.rankings.push(doc.data());
-      //   });
-      // })
-      // .catch(function(error) {
-      //   console.log("Error getting document:", error);
-      // });
   }
 };
 </script>

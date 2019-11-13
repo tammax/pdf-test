@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/upload">About</router-link>
+      <router-link to="/cupload">アップロードページ</router-link> |
+      <router-link to="/list">アップロードしたファイル一覧</router-link>
     </div>
     <router-view />
   </div>
