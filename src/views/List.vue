@@ -25,13 +25,7 @@ export default {
   },
   data() {
     return {
-      pdfs: [],
-      // currentPage: 1,
-      // pageCount: 0,
-      // src:
-      //   "https://firebasestorage.googleapis.com/v0/b/pdf-test-7a1fb.appspot.com/o/%20sample2.pdf?alt=media&token=e232e689-b76b-4beb-9cec-e608d7172c0b",
-      // comment: "",
-      // comments: []
+      pdfs: []
     };
   },
   methods: {

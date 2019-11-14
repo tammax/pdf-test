@@ -42,7 +42,7 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
-// Create component
+// プラグインの追加
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview
@@ -70,6 +70,13 @@ export default {
     ProgressBar
   },
   methods: {
+    init() {
+      this.progressVal = 0;
+      this.myFiles = [];
+      this.label = labelIdle;
+      this.description = "";
+      this.canUpload = false;
+    },
     upload() {
       if (!this.$refs.pond.getFile() || !this.description) {
         alert("必須項目エラー");
@@ -79,19 +86,19 @@ export default {
       let uploadFile = this.$refs.pond.getFile().file;
       console.log(uploadFile.name);
       // ストレージオブジェクト作成
-      var storageRef = storage.ref();
+      let storageRef = storage.ref();
       // ファイルのパスを設定
-      // var mountainsRef = storageRef.child(`images/${this.photo.name}`);
-      var mountainsRef = storageRef.child(`pdfs/${uploadFile.name}`);
+      // let mountainsRef = storageRef.child(`images/${this.photo.name}`);
+      let mountainsRef = storageRef.child(`pdfs/${uploadFile.name}`);
       // ファイルを適用してファイルアップロード開始
-      var uploadTask = mountainsRef.put(uploadFile);
+      let uploadTask = mountainsRef.put(uploadFile);
       // ステータスを監視
       uploadTask.on(
         "state_changed",
         snapshot => {
           console.log(snapshot);
-          // var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 95;
+          // let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 85;
           this.progressVal = progress;
 
           console.log("Upload is " + progress + "% done");
@@ -124,8 +131,6 @@ export default {
                 this.label = labelComplete;
                 this.canUpload = true;
                 console.log(`document writing sucess: id ${id}`);
-                // reset
-                // this.myFiles = [];
                 // resolve(id);
               })
               .catch(error => {
@@ -137,28 +142,10 @@ export default {
     },
   },
   mounted() {
-
-
-
-    //   db.collection("events")
-    // // .orderBy("score", "desc")
-    // .limit(3)
-    // .get()
-    // .then(data => {
-    //   data.forEach(doc => {
-    //     this.rankings.push(doc.data());
-    //   });
-    // })
-    // .catch(function(error) {
-    //   console.log("Error getting document:", error);
-    // });
+    init();
   },
   destroyed() {
-    this.progressVal = 0;
-    this.myFiles = [];
-    this.label = labelIdle;
-    this.description = "";
-    this.canUpload = false;
+    init();
   }
 };
 </script>
