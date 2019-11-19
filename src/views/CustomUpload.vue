@@ -14,7 +14,6 @@
         :label-idle="label"
         accepted-file-types="application/pdf"
         v-bind:files="myFiles"
-        instantUpload="instantUpload"
         :disabled="canUpload"
       />
       <button @click="upload">登録</button>
@@ -59,7 +58,6 @@ export default {
       description: "",
       photo: null,
       photo_url: null,
-      instantUpload: false,
       progressVal: 0,
       label: labelIdle,
       canUpload: false
@@ -68,6 +66,15 @@ export default {
   components: {
     FilePond,
     ProgressBar
+  },
+  watch: {
+    '$refs': {
+      handler: function (val, oldVal) {
+        // console.log('watch 1', 'newval: ', val, '   oldVal:', oldVal)
+        alert(val, oldVal);
+      },
+      deep: true
+    }
   },
   methods: {
     init() {
@@ -142,10 +149,10 @@ export default {
     },
   },
   mounted() {
-    init();
+    this.init();
   },
   destroyed() {
-    init();
+    this.init();
   }
 };
 </script>
