@@ -5,8 +5,13 @@
       <progress-bar :val="progressVal"></progress-bar>
 
       <div id="saga">
-        <input type="text" v-model="description" placeholder="タイトルを入力してね" />
+   <div>
+     <quill-editor v-model="content" ref="quillEditor"
+                   :options="editorOption"></quill-editor >
+  </div>
+  <div id="preview" class="content ql-editor" v-html="content"></div>
       </div>
+      <br><br><br><br><br><br><br>
 
       <file-pond
         name="test"
@@ -23,6 +28,12 @@
 
 <script>
 import { db, storage } from "@/config/firebase";
+
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+import { quillEditor } from 'vue-quill-editor'
+
 import ProgressBar from "vue-simple-progress";
 
 // Import Vue FilePond
@@ -60,12 +71,17 @@ export default {
       photo_url: null,
       progressVal: 0,
       label: labelIdle,
-      canUpload: false
+      canUpload: false,
+      content: 'Hellow contents',
+      editorOption: {
+        theme: 'snow'
+      }
     };
   },
   components: {
     FilePond,
-    ProgressBar
+    ProgressBar,
+    quillEditor
   },
   watch: {
     '$refs': {
@@ -81,7 +97,7 @@ export default {
       this.progressVal = 0;
       this.myFiles = [];
       this.label = labelIdle;
-      this.description = "";
+      this.content = "";
       this.canUpload = false;
     },
     upload() {
@@ -110,14 +126,6 @@ export default {
 
           console.log("Upload is " + progress + "% done");
           console.log(snapshot.state);
-          // switch (snapshot.state) {
-          //   case storage.TaskState.PAUSED: // or 'paused'
-          //     console.log('Upload is paused');
-          //     break;
-          //   case storage.TaskState.RUNNING: // or 'running'
-          //     console.log('Upload is running');
-          //     break;
-          // }
         },
         err => {
           console.log(err);
