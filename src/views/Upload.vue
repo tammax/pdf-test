@@ -6,6 +6,7 @@
     <section style="margin: 10px;">
       <input type="file" name="photo" @change="fileChange" accept="application/pdf" />
       <input type="text" v-model="description" />
+      <vue-quill-editor v-model="content" ref="quillEditor" options="editorOption"></vue-quill-editor>
       <button @click="upload">アップロード</button>
       <div v-if="photo_url">
         <div class="center">
@@ -17,15 +18,28 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import VueQuillEditor from 'vue-quill-editor';
+import 'quill/dist/quill.core.css';
+import 'quill/dist/quill.snow.css';
+import 'quill/dist/quill.bubble.css';
+Vue.use(VueQuillEditor);
 import { db, storage } from "@/config/firebase";
 
 export default {
   name: "upload",
+  components: {
+    VueQuillEditor
+  },
   data() {
     return {
       description: "",
       photo: null,
-      photo_url: null
+      photo_url: null,
+      content: 'Hellow contents',
+      editorOption: {
+        theme: 'snow'
+      }
     };
   },
   methods: {
