@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Upload from "../views/Upload.vue";
 import CustomUpload from "../views/CustomUpload.vue";
 import List from "../views/List.vue";
+import Posts from "../views/Posts.vue";
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,10 @@ const routes = [
   {
     path: "/list",
     component: List
+  },
+  {
+    path: "/posts",
+    component: Posts
   }
 ];
 
